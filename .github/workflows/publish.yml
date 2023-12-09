@@ -33,7 +33,7 @@ jobs:
           echo "{'storybook': 'dist/storybook'}" >> package.json
 
       - name: Login to npm
-        uses: actions/login@v3
+        uses: actions/login-action@v3
         with:
           registry: https://registry.npmjs.org/
           token: ${{ secrets.NPM_TOKEN }}
