@@ -40,7 +40,6 @@ jobs:
       - name: Login to GitHub Packages
         uses: actions/login@v3
         with:
-          workflow: ${{ github.workflow }}
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to GitHub Packages
