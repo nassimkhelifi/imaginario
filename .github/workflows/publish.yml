@@ -21,7 +21,7 @@ jobs:
         run: npm install -g create-package-json
 
       - name: Package Design System for npm
-        run: create-package-json -n imaginario
+        run: create-package-json -n @imaginario
 
       - name: Update package.json with Design System information
         run: |
@@ -36,3 +36,12 @@ jobs:
 
       - name: Publish to npm
         run: npm publish --access public
+
+      - name: Login to GitHub Packages
+        uses: actions/login@v3
+        with:
+          workflow: ${{ github.workflow }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to GitHub Packages
+        run: npm publish --access public --token ${{ secrets.MY_GITHUB_TOKEN }}
