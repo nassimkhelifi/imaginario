@@ -1,4 +1,4 @@
-name: Publish Imaginario Design System to npm
+name: Publish Imaginario Design System
 
 on:
   push:
@@ -34,5 +34,16 @@ jobs:
           registry: https://registry.npmjs.org/
           token: ${{ secrets.NPM_TOKEN }}
 
-      - name: Publish package to GitHub Packages
-        run: npm publish --access public --token ${{ secrets.MY_GITHUB_TOKEN }}
+      - name: Publish to npm
+        run: npm publish --access public
+
+       
+      - name: Login to GitHub Packages
+        uses: actions/login@v3
+        with:
+          workflow: ${{ github.workflow }}
+          token: ${{ secrets.MY_GITHUB_TOKEN }}
+      
+      - name: Publish to GitHub Packages
+        run: npm publish --access public
+
