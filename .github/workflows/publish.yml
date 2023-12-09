@@ -14,34 +14,20 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Design System
-        run: npm run build-design-system
+      - name: Build Storybook
+        run: npm run build-storybook
 
+      # Install create-package-json globally (optional)
       - name: Install build tools
         run: npm install -g create-package-json
 
-      - name: Package Design System for npm
-        run: create-package-json -n @your-scope/design-system
+      - name: Package Storybook for npm
+        run: create-package-json -n @imaginario/design-system
 
-      - name: Update package.json with Design System information
+      - name: Update package.json with Storybook information
         run: |
           echo "{'main': 'dist/index.js'}" >> package.json
-          echo "{'designSystem': 'dist/design-system'}" >> package.json
+          echo "{'storybook': 'dist/storybook'}" >> package.json
 
-      - name: Login to npm
-        uses: actions/login@v3
-        with:
-          registry: https://registry.npmjs.org/
-          token: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish to npm
-        run: npm publish --access public
-
-      - name: Login to GitHub Packages
-        uses: actions/login@v3
-        with:
-          workflow: ${{ github.workflow }}
-          token: ${{ secrets.MY_GITHUB_TOKEN }}
-
-      - name: Publish to GitHub Packages
-        run: npm publish --access public
+      - name: Publish package to GitHub Packages
+        run: npm publish --access public --token ${{ secrets.MY_GITHUB_TOKEN }}
