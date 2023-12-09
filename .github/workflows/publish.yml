@@ -17,11 +17,12 @@ jobs:
       - name: Build Storybook
         run: npm run build-storybook
 
+      # Install create-package-json globally (optional)
       - name: Install build tools
-        run: npm install -g yarn
+        run: npm install -g create-package-json
 
       - name: Package Storybook for npm
-        run: yarn create-package-json -n @your-scope/storybook
+        run: create-package-json -n @imaginario/design-system
 
       - name: Update package.json with Storybook information
         run: |
