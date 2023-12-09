@@ -47,6 +47,9 @@
       "last 1 safari version"
     ]
   },
+  "publishConfig": {
+  "registry": "https://npm.pkg.github.com"
+},
   "devDependencies": {
     "@storybook/addon-essentials": "^7.6.4",
     "@storybook/addon-interactions": "^7.6.4",
