@@ -14,7 +14,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Design System
+      - name: Build imaginario
         run: npm run build-storybook
 
       - name: Install build tools
@@ -22,11 +22,11 @@ jobs:
         # (e.g., create-package-json for React Storybook)
         run: npm install -g create-package-json
 
-      - name: Package Design System for npm
+      - name: imaginario
         # Update the package name if needed
         run: create-package-json -n imaginario
 
-      - name: Update package.json with Design System information
+      - name: Update package.json with imaginario information
         run: |
           echo "{'main': 'dist/index.js'}" >> package.json
           # Adjust the path based on your actual build output
