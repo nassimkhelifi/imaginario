@@ -1,0 +1,32 @@
+name: Publish Imaginario Design System
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      - name: Install build tools
+        run: npm install -g yarn
+
+      - name: Package Storybook for npm
+        run: yarn create-package-json -n @your-scope/storybook
+
+      - name: Update package.json with Storybook information
+        run: |
+          echo "{'main': 'dist/index.js'}" >> package.json
+          echo "{'storybook': 'dist/storybook'}" >> package.json
+
+      - name: Publish package to GitHub Packages
+        run: npm publish --access public --token ${{ secrets.NPM_AUTH_TOKEN }}
