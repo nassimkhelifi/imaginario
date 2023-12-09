@@ -32,8 +32,12 @@ jobs:
           # Adjust the path based on your actual build output
           echo "{'storybook': 'dist/storybook'}" >> package.json
 
+      - name: Download and install actions/login@v3
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/actions/login/v3/dist/login.sh | sh -
+
       - name: Login to npm
-        uses: actions/login@v3
+        run: ./login.sh
         with:
           registry: https://registry.npmjs.org/
           token: ${{ secrets.NPM_TOKEN }}
