@@ -1,4 +1,4 @@
-name: Publish Imaginario Design System
+name: Publish Imaginario Design System to npm
 
 on:
   push:
@@ -9,36 +9,30 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build @imaginario/design-system
-        run: npm run build-storybook
+      - name: Build Design System
+        run: npm run build-design-system
 
       - name: Install build tools
-        # Adjust this command based on your actual build tools
-        # (e.g., create-package-json for React Storybook)
         run: npm install -g create-package-json
 
-      - name: imaginario
-        # Update the package name if needed
-        run: create-package-json -n @imaginario/design-system
+      - name: Package Design System for npm
+        run: create-package-json -n @your-scope/design-system
 
-      - name: Update package.json with @imaginario/design-system information
+      - name: Update package.json with Design System information
         run: |
           echo "{'main': 'dist/index.js'}" >> package.json
-          # Adjust the path based on your actual build output
-          echo "{'storybook': 'dist/storybook'}" >> package.json
+          echo "{'designSystem': 'dist/design-system'}" >> package.json
 
-      - name: Publish to npm
-        run: npm publish --access public
-
-      - name: Login to GitHub Packages
-        uses: actions/login@v4
+      - name: Login to npm
+        uses: actions/login@v3
         with:
-          token: ${{ secrets.MY_GITHUB_TOKEN }}
+          registry: https://registry.npmjs.org/
+          token: ${{ secrets.NPM_TOKEN }}
 
-      - name: Publish to GitHub Packages
+      - name: Publish package to GitHub Packages
         run: npm publish --access public --token ${{ secrets.MY_GITHUB_TOKEN }}
