@@ -22,7 +22,7 @@ jobs:
         run: npm install -g create-package-json
 
       - name: Package Storybook for npm
-        run: create-package-json -n @imaginario
+        run: create-package-json -n imaginario
 
       - name: Update package.json with Storybook information
         run: |
