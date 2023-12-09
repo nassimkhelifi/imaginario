@@ -1,5 +1,5 @@
 {
-  "name": "imaginario",
+  "name": "@imaginario/design-system",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
