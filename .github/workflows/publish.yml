@@ -14,16 +14,16 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Storybook
-        run: npm run build-storybook
+      - name: Build design-system
+        run: npm run build-design-system
 
       - name: Install build tools
         run: npm install -g yarn
 
-      - name: Package Storybook for npm
-        run: yarn create-package-json -n @your-scope/storybook
+      - name: Package design-system for npm
+        run: yarn create-package-json -n @imaginario/storybook
 
-      - name: Update package.json with Storybook information
+      - name: Update package.json with design-system information
         run: |
           echo "{'main': 'dist/index.js'}" >> package.json
           echo "{'storybook': 'dist/storybook'}" >> package.json
