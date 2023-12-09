@@ -42,7 +42,7 @@ jobs:
         run: npm publish --access public
 
       - name: Login to GitHub Packages
-        uses: actions/login@v3
+        uses: actions/login@v4
         with:
           token: ${{ secrets.MY_GITHUB_TOKEN }}
 
