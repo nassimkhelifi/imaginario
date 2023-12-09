@@ -14,7 +14,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build imaginario
+      - name: Build @imaginario/design-system
         run: npm run build-storybook
 
       - name: Install build tools
@@ -24,19 +24,13 @@ jobs:
 
       - name: imaginario
         # Update the package name if needed
-        run: create-package-json -n imaginario
+        run: create-package-json -n @imaginario/design-system
 
-      - name: Update package.json with imaginario information
+      - name: Update package.json with @imaginario/design-system information
         run: |
           echo "{'main': 'dist/index.js'}" >> package.json
           # Adjust the path based on your actual build output
           echo "{'storybook': 'dist/storybook'}" >> package.json
-
-      - name: Login to npm
-        uses: actions/login@v4
-        with:
-          registry: https://registry.npmjs.org/
-          token: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish to npm
         run: npm publish --access public
