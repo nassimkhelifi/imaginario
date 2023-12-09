@@ -1,4 +1,4 @@
-name: Publish React Storybook Project
+name: Publish Imaginario Design System
 
 on:
   push:
@@ -14,19 +14,38 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build design-system
-        run: npm run build-design-system
+      - name: Build Design System
+        run: npm run build-storybook
 
       - name: Install build tools
-        run: npm install -g yarn
+        # Adjust this command based on your actual build tools
+        # (e.g., create-package-json for React Storybook)
+        run: npm install -g create-package-json
 
-      - name: Package design-system for npm
-        run: yarn create-package-json -n @imaginario/storybook
+      - name: Package Design System for npm
+        # Update the package name if needed
+        run: create-package-json -n imaginario
 
-      - name: Update package.json with design-system information
+      - name: Update package.json with Design System information
         run: |
           echo "{'main': 'dist/index.js'}" >> package.json
+          # Adjust the path based on your actual build output
           echo "{'storybook': 'dist/storybook'}" >> package.json
 
-      - name: Publish package to GitHub Packages
+      - name: Login to npm
+        uses: actions/login@v3
+        with:
+          registry: https://registry.npmjs.org/
+          token: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to npm
+        run: npm publish --access public
+
+      - name: Login to GitHub Packages (optional)
+        uses: actions/login@v3
+        with:
+          workflow: ${{ github.workflow }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to GitHub Packages (optional)
         run: npm publish --access public --token ${{ secrets.MY_GITHUB_TOKEN }}
